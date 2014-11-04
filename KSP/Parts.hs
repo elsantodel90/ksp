@@ -3,7 +3,7 @@ module KSP.Parts where
 data MotorSpec = MotorSpec {motorThrust :: Double, isp :: Double}
 
 g0 :: Double
-g0 = 9.82
+g0 = 9.82 -- Por cuestiones locas del KSP, se usa esta constante de conversion y no la posta (???)
 
 data Part = Part {motorSpec :: Maybe MotorSpec, mass :: Double, dryMass :: Double}
 
@@ -19,7 +19,8 @@ fuel p = mass p - dryMass p
 burnRate :: Part -> Double
 burnRate = maybe 0.0 motorBurnRate . motorSpec
 
--- Parts!!
+-- Parts!! (Los valores de todas las partes se obtienen mirando el juego directamente, en el VAB)
+-- TODO: Mejorar el modelado de Isp (la eficiencia en vacio y en atmosfera es diferente)
 
 commandPodMk1 :: Part
 flR25rcs,ftx2,flT400,flT800,stratusV :: Part

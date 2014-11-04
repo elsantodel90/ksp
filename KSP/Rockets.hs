@@ -37,7 +37,7 @@ stageStats extraMass (stageName, stage) = StageStats {
                       minA = totalThrust / totalMass
                       maxA = totalThrust / totalDryMass
                       bt   = total fuel / totalBurnRate
-                      dv   = - netIsp * log ( totalDryMass / totalMass )
+                      dv   = - netIsp * log ( totalDryMass / totalMass ) -- Tsiolkovsky's rocket equation
                       
 rocketStats :: Rocket -> RocketStats
 rocketStats rocket = zipWith stageStats (scanl (+) 0 stageMasses) rocket
