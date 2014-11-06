@@ -84,6 +84,17 @@ standardDragCoefficient = 0.2
 terminalVelocityAtHeight :: Body -> Double -> Double
 terminalVelocityAtHeight p h = sqrt $ gravity p (h + radius p) / (bodyDensityAtHeight p h * standardDragCoefficient * 0.004) -- 1/2 de la conversion magica masa -> area
 
+accelerationForFuelOptimalVerticalAscentAtHeight :: Body -> Double -> Double
+accelerationForFuelOptimalVerticalAscentAtHeight p h = derivative h * terminalVelocityAtHeight p h
+                                 where eps          = 1e-9
+                                       derivative _h = (terminalVelocityAtHeight p (_h+eps/2) - terminalVelocityAtHeight p (_h-eps/2)) / eps
+
+halfHohmannDeltaV :: Body -> Double -> Double -> Double
+halfHohmannDeltaV p d1 d2 = sqrt (mu p) * (sqrt (2 * d2 / (d1 * (d1 + d2))) - sqrt (1.0 / d1))
+
+fullHohmannDeltaV :: Body -> Double -> Double -> Double
+fullHohmannDeltaV p d1 d2 = sqrt (mu p) * (sqrt (2 * d2 / (d1 * (d1 + d2))) - sqrt (1.0 / d1) + sqrt (1.0 / d2) - sqrt (2 * d1 / (d2 * (d1 + d2))))
+
 -- Planets!
 kerbin :: Body
 
