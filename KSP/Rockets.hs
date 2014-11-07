@@ -169,14 +169,31 @@ haskell4b = ( "Lunar module",
             ):
           []
 
--- Rocket design to get to orbit, using as little fuel as possible.
+-- Rocket design to get to orbit, using as little fuel as possible. First use of asparagus staging.
 orbiter1 =  ( "Stage3",
                 [mk16Parachute,commandPodMk1, flT400,lvT30]
             ): 
             ( "Stage2",
-                [tt38k,tt38k, flT400, flT400, ftx2FuelDuct, ftx2FuelDuct, borrowed lvT30]
+                [tt38k,tt38k, flT400, flT400, avR8,avR8, ftx2FuelDuct, ftx2FuelDuct, borrowed lvT30]
             ):
             ( "Stage1",
-                [tt38k,tt38k, flT400, flT400, ftx2FuelDuct, ftx2FuelDuct, borrowed lvT30]
+                [tt38k,tt38k, flT400, flT400, avR8,avR8, ftx2FuelDuct, ftx2FuelDuct, borrowed lvT30]
+            ):
+          []
+-- Similar to orbiter1, with more fine-grained asparagus staging (Only one fuel tank per stage).
+-- Immediately established a new record for less-fuel-to-kerbin-orbit, with only 4 flT400 (vs the 5 used by orbiter1).
+-- Due to it's "upside-down" design (used fuel tanks are ejected from the TOP of the vehicle), it requires some skill
+-- from the pilot to ensure a safe decoupling of used fuel stages.
+orbiter2 =  ( "Stage4",
+                [commandPodMk1, flT400, avR8,avR8,avR8,avR8, lvT30]
+            ): 
+            ( "Stage3",
+                [tr18a, flT400, ftx2FuelDuct, borrowed lvT30]
+            ):
+            ( "Stage2",
+                [tr18a, flT400, ftx2FuelDuct, borrowed lvT30]
+            ):
+            ( "Stage1",
+                [tr18a, flT400, ftx2FuelDuct, borrowed lvT30]
             ):
           []
