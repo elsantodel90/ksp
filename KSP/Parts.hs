@@ -7,6 +7,10 @@ g0 = 9.82 -- Por cuestiones locas del KSP, se usa esta constante de conversion y
 
 data Part = Part {motorSpec :: Maybe MotorSpec, mass :: Double, dryMass :: Double}
 
+-- Turns a part to an equivalent with zero mass. Useful to express that an engine from a later stage is used (as in asparagus staging)
+borrowed :: Part -> Part
+borrowed p = Part {motorSpec = motorSpec p, mass = 0.0, dryMass = 0.0}
+
 motorBurnRate :: MotorSpec -> Double
 motorBurnRate spec = motorThrust spec / (isp spec * g0)
 

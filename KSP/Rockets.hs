@@ -56,7 +56,7 @@ showStatsForRocket = showRocketStats . rocketStats
 
 -- ROCKETS!!
 
-haskell2b,  haskell4, haskell4b :: Rocket
+haskell2b,  haskell4, haskell4b, orbiter1 :: Rocket
 
 -- Haskell2b was an immediate success, performing orbital maneuvers and rendez-vous on its first flights.
 haskell2b =  ( "Space stage", 
@@ -169,3 +169,14 @@ haskell4b = ( "Lunar module",
             ):
           []
 
+-- Rocket design to get to orbit, using as little fuel as possible.
+orbiter1 =  ( "Stage3",
+                [mk16Parachute,commandPodMk1, flT400,lvT30]
+            ): 
+            ( "Stage2",
+                [tt38k,tt38k, flT400, flT400, ftx2FuelDuct, ftx2FuelDuct, borrowed lvT30]
+            ):
+            ( "Stage1",
+                [tt38k,tt38k, flT400, flT400, ftx2FuelDuct, ftx2FuelDuct, borrowed lvT30]
+            ):
+          []
