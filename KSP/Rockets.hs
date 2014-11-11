@@ -56,7 +56,7 @@ showStatsForRocket = showRocketStats . rocketStats
 
 -- ROCKETS!!
 
-haskell2b,  haskell4, haskell4b, orbiter1 :: Rocket
+haskell2b,  haskell4, haskell4b,haskell4c, orbiter1, orbiter2 :: Rocket
 
 -- Haskell2b was an immediate success, performing orbital maneuvers and rendez-vous on its first flights.
 haskell2b =  ( "Space stage", 
@@ -145,6 +145,36 @@ haskell4b = ( "Lunar module",
             ): 
             ( "Space stage",
                 [tr18a, flT800, flT400,flT400,lvT30, rv105,rv105, flR25rcs]
+            ):
+            ( "Fifth solid stage", 
+                  [tt38k,rt10,avR8,
+                   tt38k,rt10,avR8]
+            ):
+            ( "Fourth solid stage",
+                  [tr18a,rt10,rt10,rt10,avR8,avR8,avR8,eas4Strut,
+                   tr18a,rt10,rt10,rt10,avR8,avR8,avR8,eas4Strut]
+            ):
+            ( "Third solid stage", 
+                  [tr18a,rt10, rt10,avR8,eas4Strut,
+                   tr18a,rt10, rt10,avR8,eas4Strut]
+            ):
+            ( "Second solid stage", 
+                  [tr18a,rt10, rt10, rt10,eas4Strut,eas4Strut,eas4Strut,eas4Strut,eas4Strut,
+                   tr18a,rt10, rt10, rt10,eas4Strut,eas4Strut,eas4Strut,eas4Strut,eas4Strut]
+            ):
+            ( "First solid stage", 
+                  [tr18a,rt10, rt10, rt10,rt10, avR8,avR8,eas4Strut,eas4Strut,eas4Strut,
+                   tr18a,rt10, rt10, rt10,rt10, avR8,avR8,eas4Strut,eas4Strut,eas4Strut,
+                   eas4Strut,eas4Strut,eas4Strut]
+            ):
+          []
+-- Identical to haskell4b, except it has two sets of four RCS blocks, instead of only one set of two, and they are MUCH better placed
+-- for efficient translation and torque application.
+haskell4c = ( "Lunar module",
+                [mk16Parachute, commandPodMk1, flT400, lt1LandingStruts, lt1LandingStruts, lt1LandingStruts,lv909]
+            ): 
+            ( "Space stage",
+                [tr18a, flT800, flT400,flT400,lvT30, rv105,rv105, rv105,rv105, rv105,rv105, rv105,rv105, flR25rcs]
             ):
             ( "Fifth solid stage", 
                   [tt38k,rt10,avR8,
