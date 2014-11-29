@@ -227,3 +227,14 @@ orbiter2 =  ( "Stage4",
                 [tr18a, flT400, ftx2FuelDuct, borrowed lvT30]
             ):
           []
+
+-- My Campaign Rockets!!!!
+
+upGoer1 :: Rocket
+
+-- upGoer1 is designed to go as high as possible, as cheap as possible.
+
+upGoer1 = ( "SingleStage",
+                [mk16Parachute, commandPodMk1, seaLevel rt10]
+          ): 
+          []
