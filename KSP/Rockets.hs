@@ -7,7 +7,12 @@ type Rocket = [Stage]
 
 type Stage = (String, [Part]) -- Stage = Name + Parts
 
-data StageStats = StageStats {name :: String, deltav :: Double, minAcceleration :: Double, maxAcceleration :: Double, burnTime :: Double, stageMass :: Double}
+data StageStats = StageStats {name :: String, 
+                              deltav :: Double, 
+                              minAcceleration :: Double, 
+                              maxAcceleration :: Double, 
+                              burnTime :: Double, 
+                              stageMass :: Double}
 type RocketStats = [StageStats]
 
 instance Show StageStats where
@@ -230,11 +235,56 @@ orbiter2 =  ( "Stage4",
 
 -- My Campaign Rockets!!!!
 
-upGoer1 :: Rocket
+upGoer1,upGoer2,rocko1 :: Rocket
 
 -- upGoer1 is designed to go as high as possible, as cheap as possible.
 
-upGoer1 = ( "SingleStage",
+upGoer1 = ( "Second stage",
                 [mk16Parachute, commandPodMk1, seaLevel rt10]
           ): 
+          ( "First stage",
+                [seaLevel rt10]
+          ):
+          []
+
+upGoer1liquid = ( "Second stage",
+                [mk16Parachute, commandPodMk1, 
+                     flT400, seaLevel lvT30]
+          ): 
+          ( "First stage",
+                [tr18a, flT400, seaLevel lvT30]
+          ):
+          []
+
+
+upGoer2 = ( "Third solid stage",
+                [mk16Parachute, commandPodMk1, tr18a, rt10]
+          ):
+          ( "Second solid stage",
+                [tr18a, seaLevel rt10]
+          ):
+          ( "First solid stage",
+                [tr18a, seaLevel rt10]
+          ):
+          []
+
+rocko1 =  ( "Second solid stage",
+                [mk16Parachute, commandPodMk1, 
+                 tr18a, seaLevel rockomaxBACC, seaLevel rt10, seaLevel rt10, avt1,avt1]
+          ):
+          ( "First solid stage",
+                [tr18a, seaLevel rockomaxBACC, seaLevel rt10, seaLevel rt10, avt1,avt1]
+          ):
+          []
+
+rocko1b =  ( "Rockomax stage",
+                [mk16Parachute, commandPodMk1, 
+                 tr18a, seaLevel rockomaxBACC]
+          ):
+          ( "Second solid stage",
+                [seaLevel rockomaxBACC,seaLevel rockomaxBACC]
+          ):
+          ( "First solid stage",
+                [tr18a, seaLevel rockomaxBACC , seaLevel rockomaxBACC, tr18a, seaLevel rockomaxBACC, seaLevel rockomaxBACC]
+          ):
           []
