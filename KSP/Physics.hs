@@ -26,7 +26,7 @@ seconds, minutes, hours, days :: Double
 seconds = 1.0
 minutes = 60.0 * seconds
 hours   = 60.0 * minutes
-days    = 24.0 * hours
+days    = 6.0 * hours
 
 -- Planet calculation stuff
 
@@ -39,6 +39,9 @@ orbitalPeriod pr@(ParentRelation _ d) = rotationalPeriodFromSurfaceSpeedAndRadiu
 gravity :: Body -> Double -> Double
 gravity p h = mu p / h **2
 
+speedAtNewDistance :: Body -> Double -> Double -> Double -> Double
+speedAtNewDistance p oldDistance oldSpeed newDistance = sqrt $ 2 * (energy + mu p / newDistance)
+                        where energy = 0.5 * oldSpeed**2.0 - mu p / oldDistance
 
 surfaceGravity :: Body -> Double
 surfaceGravity p = gravity p (radius p)
@@ -84,6 +87,14 @@ standardDragCoefficient = 0.2
 terminalVelocityAtHeight :: Body -> Double -> Double
 terminalVelocityAtHeight p h = sqrt $ gravity p (h + radius p) / (bodyDensityAtHeight p h * standardDragCoefficient * 0.004) -- 1/2 de la conversion magica masa -> area
 
+weightedMean :: Double -> Double -> Double -> Double -> Double
+weightedMean wA a wB b = (wA * a + wB * b) / (wA + wB)
+
+fallingSpeedAtSurface :: Body -> Double -> Double -> Double -> Double
+fallingSpeedAtSurface p parachutesDrag parachutesMass payloadMass = sqrt $ q / drag
+                                where q    = standardDragCoefficient * (terminalVelocityAtHeight p 0)**2.0
+                                      drag = weightedMean parachutesMass parachutesDrag payloadMass 0.0 -- Pessimistic, calculated speed will be (just very slightly) higher than in reality
+
 accelerationForFuelOptimalVerticalAscentAtHeight :: Body -> Double -> Double
 accelerationForFuelOptimalVerticalAscentAtHeight p h = derivative h * terminalVelocityAtHeight p h
                                  where eps          = 1e-9
@@ -94,6 +105,9 @@ halfHohmannDeltaV p d1 d2 = sqrt (mu p) * (sqrt (2 * d2 / (d1 * (d1 + d2))) - sq
 
 fullHohmannDeltaV :: Body -> Double -> Double -> Double
 fullHohmannDeltaV p d1 d2 = sqrt (mu p) * (sqrt (2 * d2 / (d1 * (d1 + d2))) - sqrt (1.0 / d1) + sqrt (1.0 / d2) - sqrt (2 * d1 / (d2 * (d1 + d2))))
+
+printVelocityTable :: Body -> Double -> Double -> IO ()
+printVelocityTable p maxH deltaH = mapM_ putStrLn [show h ++ " -> " ++ show (terminalVelocityAtHeight p h) | h <- [0,deltaH..maxH] ]
 
 -- Planets!
 kerbin :: Body

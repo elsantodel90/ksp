@@ -204,17 +204,6 @@ haskell4c = ( "Lunar module",
             ):
           []
 
--- Rocket design to get to orbit, using as little fuel as possible. First use of asparagus staging.
-orbiter1 =  ( "Stage3",
-                [mk16Parachute,commandPodMk1, flT400,lvT30]
-            ): 
-            ( "Stage2",
-                [tt38k,tt38k, flT400, flT400, avR8,avR8, ftx2FuelDuct, ftx2FuelDuct, borrowed lvT30]
-            ):
-            ( "Stage1",
-                [tt38k,tt38k, flT400, flT400, avR8,avR8, ftx2FuelDuct, ftx2FuelDuct, borrowed lvT30]
-            ):
-          []
 -- Similar to orbiter1, with more fine-grained asparagus staging (Only one fuel tank per stage).
 -- Immediately established a new record for less-fuel-to-kerbin-orbit, with only 4 flT400 (vs the 5 used by orbiter1).
 -- Due to it's "upside-down" design (used fuel tanks are ejected from the TOP of the vehicle), it requires some skill
@@ -235,9 +224,9 @@ orbiter2 =  ( "Stage4",
 
 -- My Campaign Rockets!!!!
 
-upGoer1,upGoer2,rocko1 :: Rocket
+upGoer1,upGoer1liquid, upGoer2,rocko1,rocko1b, orbitatis1,orbitatis1b,orbiter3,apolin1 :: Rocket
 
--- upGoer1 is designed to go as high as possible, as cheap as possible.
+-- upGoer1 is designed to go as high as possible, as cheap as possible. Upper atmosphere reached.
 
 upGoer1 = ( "Second stage",
                 [mk16Parachute, commandPodMk1, seaLevel rt10]
@@ -246,6 +235,8 @@ upGoer1 = ( "Second stage",
                 [seaLevel rt10]
           ):
           []
+
+-- Version con combustible liquido, utilizado para cumplir un contrato de testing de un paracaidas.
 
 upGoer1liquid = ( "Second stage",
                 [mk16Parachute, commandPodMk1, 
@@ -256,7 +247,7 @@ upGoer1liquid = ( "Second stage",
           ):
           []
 
-
+-- Exitoso en ir bien arriba al espacio y salir de la atmosfera por primera vez.
 upGoer2 = ( "Third solid stage",
                 [mk16Parachute, commandPodMk1, tr18a, rt10]
           ):
@@ -268,6 +259,7 @@ upGoer2 = ( "Third solid stage",
           ):
           []
 
+-- No muy exitoso
 rocko1 =  ( "Second solid stage",
                 [mk16Parachute, commandPodMk1, 
                  tr18a, seaLevel rockomaxBACC, seaLevel rt10, seaLevel rt10, avt1,avt1]
@@ -277,6 +269,7 @@ rocko1 =  ( "Second solid stage",
           ):
           []
 
+-- Cumplio mision de testear el rockomaxBACC, exitosa trayectoria suborbital
 rocko1b =  ( "Rockomax stage",
                 [mk16Parachute, commandPodMk1, 
                  tr18a, seaLevel rockomaxBACC]
@@ -287,4 +280,85 @@ rocko1b =  ( "Rockomax stage",
           ( "First solid stage",
                 [tr18a, seaLevel rockomaxBACC , seaLevel rockomaxBACC, tr18a, seaLevel rockomaxBACC, seaLevel rockomaxBACC]
           ):
+          []
+
+-- Proyecto similar al orbiter1, pero teniendo en cuenta que no disponemos de fuel-ducts pero si de combustible solido pulenta.
+
+orbitatis1 =  ( "Orbital stage",
+                [mk16Parachute,commandPodMk1, flT400,lv909]
+            ): 
+            ( "Liquid stage",
+                [tt38k,tt38k, flT400, flT400, avR8,avR8, seaLevel lvT30, lvT30]
+            ):
+            ( "Solid stage",
+                [tr18a, seaLevel rockomaxBACC]
+            ):
+          []
+
+orbitatis1b =  ( "Orbital stage",
+                [mk2radialParachute, mk2radialParachute, commandPodMk1, misteryGoo, sc9001scienceJr, flT400,lv909]
+            ): 
+            ( "Suborbital stage",
+                [tt38k,tt38k, flT400, flT400, avR8,avR8, lvT30, lvT30]
+            ):
+            ( "Second solid stage",
+                [tr18a, seaLevel rockomaxBACC]
+            ):
+            ( "First solid stage",
+                [tr18a, tr18a, seaLevel rt10, seaLevel rt10]
+            ):
+          []
+
+-- Rocket design to get to orbit, using as little fuel as possible. First use of asparagus staging. [Built in the game's demo]
+orbiter1 =  ( "Stage3",
+                [mk16Parachute,commandPodMk1, flT400,lvT30]
+            ): 
+            ( "Stage2",
+                [tt38k,tt38k, flT400, flT400, ftx2FuelDuct, ftx2FuelDuct, borrowed lvT30]
+            ):
+            ( "Stage1",
+                [tt38k,tt38k, flT400, flT400, ftx2FuelDuct, ftx2FuelDuct, borrowed lvT30]
+            ):
+          []
+
+-- Rocket design to get to orbit effectively and *cheaply*.
+
+orbiter3 =  ( "Orbital Stage",
+                [mk2radialParachute, mk2radialParachute,commandPodMk1, flT400, avR8,avR8,avR8,lv909]
+            ):
+            ( "Solid 2",
+                [tr18a, seaLevel rockomaxBACC]
+            ):
+            ( "Solid 1",
+                [tr18a, seaLevel rockomaxBACC]
+            ):
+          []
+
+-- Rocket design to get to the mun, stablish a permanent scientific probe (thermometer) in orbit around it, make a kerbal lay foot on it and return home safely.
+
+-- Planned Requisites:
+-- > First stages to get the final two stages into orbit.
+-- > Scientific probe stage, with 1400 m/s of deltav (to transfer to the mun, and establish an orbit around it)
+-- > Mun lander: with 2000 m/s of deltav (descends to the mun from orbit, returns back to kerbin)
+-- > DESIGN MISTAKE: Forgot to add mobileProcessingLab in calculations.
+
+apolin1 =   ( "Mun Lander",
+                [mk16Parachute,commandPodMk1, flT200,rockomax48_7s, lt1LandingStruts,lt1LandingStruts,lt1LandingStruts]
+            ):
+            ( "Scientific-orbiter probe",
+                [tr18a, probodobodyneOcto, oxStatSolar,oxStatSolar, z100Bateries,z100Bateries, communotron16, clampotron,mobileProcessingLab, 
+                 tr18a, flT200, flT100, rockomax48_7s]
+            ):
+            ( "Lifting stage",
+                [tr18a, flT800, skipper]
+            ):
+            ( "Lifting stage",
+                [tt38k, tt38k , flT800, flT800, seaLevel $ borrowed skipper]
+            ):
+            ( "Lifting stage",
+                [tt38k, tt38k , flT800, flT800, seaLevel $ borrowed skipper]
+            ):
+            ( "Lifting stage",
+                [tr18a , seaLevel s1SRB_KD25k,seaLevel s1SRB_KD25k]
+            ):
           []
